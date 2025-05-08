@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Space Explorer Interactive Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Space Explorer <span class="dashboard-label">Dashboard</span></h1>
+            <div class="theme-toggle">
+                <span class="theme-label">Light Mode</span>
+                <button id="themeToggle"><i class="fas fa-sun"></i></button>
+            </div>
+        </header>
+
+        <main>
+            <!-- Tab Navigation -->
+            <div class="tab-container">
+                <div class="tabs">
+                    <button class="tab-btn active" data-tab="explore">Explore</button>
+                    <button class="tab-btn" data-tab="gallery">Gallery</button>
+                    <button class="tab-btn" data-tab="mission">Mission Control</button>
+                </div>
+
+                <!-- Tab Content -->
+                <div class="tab-content">
+                    <!-- Explore Tab -->
+                    <div class="tab-pane active" id="explore">
+                        <h2>Control Panel</h2>
+                        <div class="control-panel">
+                            <div class="control-row">
+                                <div class="control-box">
+                                    <h3>Spacecraft Status</h3>
+                                    <div class="status-indicator green" id="statusIndicator">ONLINE</div>
+                                    <button id="toggleStatus" class="control-btn">Toggle Status</button>
+                                </div>
+                                <div class="control-box">
+                                    <h3>Boost Power</h3>
+                                    <div class="power-meter">
+                                        <div class="power-level" id="powerLevel" style="width: 20%;">20%</div>
+                                    </div>
+                                    <button id="boostPower" class="control-btn">Boost Power</button>
+                                </div>
+                            </div>
+                            <div class="control-row">
+                                <div class="control-box">
+                                    <h3>System Messages</h3>
+                                    <div class="message-panel" id="messagePanel">
+                                        <p>System ready. Awaiting commands.</p>
+                                    </div>
+                                </div>
+                                <div class="control-box secret-panel">
+                                    <h3>Secret Commands</h3>
+                                    <p>Press key: <span id="keyPressed" class="highlight">None</span></p>
+                                    <p class="secret-hint">Double-click anywhere for a secret feature!</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Gallery Tab -->
+                    <div class="tab-pane" id="gallery">
+                        <h2>Space Gallery</h2>
+                        <div class="gallery-container">
+                            <button id="prevBtn" class="gallery-btn"><i class="fas fa-chevron-left"></i></button>
+                            <div class="gallery-frame">
+                                <div class="gallery-slide">
+                                    <img src="https://images.unsplash.com/photo-1462331940025-496dfbfc7564" alt="Galaxy">
+                                    <div class="caption">Distant Galaxy</div>
+                                </div>
+                            </div>
+                            <button id="nextBtn" class="gallery-btn"><i class="fas fa-chevron-right"></i></button>
+                        </div>
+                        <div class="gallery-dots" id="galleryDots">
+                            <span class="dot active"></span>
+                            <span class="dot"></span>
+                            <span class="dot"></span>
+                            <span class="dot"></span>
+                            <span class="dot"></span>
+                        </div>
+                    </div>
+
+                    <!-- Mission Control Tab -->
+                    <div class="tab-pane" id="mission">
+                        <h2>Mission Registration</h2>
+                        <form id="missionForm" class="mission-form">
+                            <div class="form-group">
+                                <label for="astronautName">Astronaut Name <span class="required">*</span></label>
+                                <input type="text" id="astronautName" required>
+                                <div class="error-message" id="nameError"></div>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Space Email <span class="required">*</span></label>
+                                <input type="email" id="email" required>
+                                <div class="error-message" id="emailError"></div>
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Security Code <span class="required">*</span></label>
+                                <input type="password" id="password" required>
+                                <div class="error-message" id="passwordError"></div>
+                                <div class="password-strength" id="passwordStrength">
+                                    <div class="strength-bar"></div>
+                                    <div class="strength-text">Password Strength</div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="mission">Mission Type</label>
+                                <select id="mission">
+                                    <option value="exploration">Exploration</option>
+                                    <option value="research">Research</option>
+                                    <option value="mining">Mining</option>
+                                    <option value="colonization">Colonization</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Experience Level</label>
+                                <div class="radio-group">
+                                    <input type="radio" id="beginner" name="experience" value="beginner">
+                                    <label for="beginner">Beginner</label>
+                                    <input type="radio" id="intermediate" name="experience" value="intermediate">
+                                    <label for="intermediate">Intermediate</label>
+                                    <input type="radio" id="expert" name="experience" value="expert">
+                                    <label for="expert">Expert</label>
+                                </div>
+                            </div>
+                            <div class="form-buttons">
+                                <button type="submit" class="submit-btn">Register Mission</button>
+                                <button type="reset" class="reset-btn">Clear Form</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>Space Explorer Dashboard v1.0 | Created with LOVE <i class="fas fa-meteor"></i> by An Aspiring Web Dev Fifii</p>
+            <div id="secretPanel" class="hidden">
+                <div class="asteroid-game">
+                    <div class="game-message">Secret Mode Activated: Press arrow keys to navigate</div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <div id="successModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Mission Registered!</h2>
+            <p>Your space mission has been successfully registered.</p>
+            <p>Prepare for launch, astronaut!</p>
+            <button id="modalOk" class="modal-btn">OK</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
